@@ -22,3 +22,7 @@ test('test', async ({ page }) => {
   await expect(page.getByText('del ccu', { exact: true })).toBeVisible();
   await page.getByText('03-03-2026 - 07-03-2026', { exact: true }).click();
 });
+
+
+//pnpm exec playwright codegen https://phptravels.net/
+//pnpm exec playwright test --headed
