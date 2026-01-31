@@ -1,0 +1,23 @@
+
+{
+  "moviePricing": [
+    {
+      "movie": "Tenet",
+      "expectedRetailers": [
+        "iTunes $14.99 4K",
+        "Prime Video $14.99 4K",
+        "Fandango at Home $14.99 4K",
+        "Google Play/YouTube $14.99 4K"
+      ]
+    },
+    {
+      "movie": "Shawshank Redemtion",
+      "expectedRetailers": [
+        "iTunes $14.99 4K",
+        "Prime Video $14.99 4K",
+        "Fandango at Home $14.99 4K",
+        "Google Play/YouTube $14.99 4K"
+      ]
+    }
+  ]
+}
