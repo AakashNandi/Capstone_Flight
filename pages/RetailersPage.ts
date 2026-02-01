@@ -1,25 +1,21 @@
-// pages/RetailersPage.ts
-import { BasePage } from './BasePage';
-import { Locator } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 
-export class RetailersPage extends BasePage {
-  private retailerButtons: Locator[];
+export class RetailersPage {
+  constructor(private page: Page) {}
 
-  constructor(page: any) {
-    super(page);  // Calling the constructor of the BasePage class
-    this.retailerButtons = [
-      this.page.locator('[role="button"][name="iTunes $12.99 4K"]'),
-      this.page.locator('[role="button"][name="Prime Video $12.99 4K"]'),
-      this.page.locator('[role="button"][name="Fandango at Home $12.99 4K"]'),
-      this.page.locator('[role="button"][name="Google Play/YouTube $12.99 4K"]')
-    ];
-  }
+  private retailerButtons =
+    this.page.locator('button:has-text("$")');
 
-  // Method to verify if all expected retailers are visible
-  async verifyRetailerPricing(): Promise<void> {
-    for (const button of this.retailerButtons) {
-      await this.waitForElement(button);  // Wait for the retailer button to appear
-      await button.isVisible();  // Ensure button is visible
+  async validateFirstThreeRetailers() {
+    const count = await this.retailerButtons.count();
+    const limit = Math.min(count, 3);
+
+    expect(count).toBeGreaterThan(0);
+
+    for (let i = 0; i < limit; i++) {
+      const retailer = this.retailerButtons.nth(i);
+      await expect(retailer).toBeVisible();
+      console.log(`Retailer ${i + 1}: ${await retailer.innerText()}`);
     }
   }
 }

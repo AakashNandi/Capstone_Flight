@@ -1,0 +1,7 @@
+{
+  "movies": [
+    { "name": "Tenet" },
+    { "name": "Inception" },
+    { "name": "Oppenheimer"}
+  ]
+}
