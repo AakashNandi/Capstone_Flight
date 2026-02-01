@@ -1,10 +1,13 @@
 import { Page } from '@playwright/test';
 
 export class HomePage {
-  constructor(private page: Page) {}
+  private searchButton: any;
+  private searchBox: any;
 
-  private searchButton = this.page.getByRole('button', { name: ' Search' });
-  private searchBox = this.page.getByRole('searchbox', { name: 'Search' });
+  constructor(private page: Page) {
+    this.searchButton = this.page.getByRole('button', { name: ' Search' });
+    this.searchBox = this.page.getByRole('searchbox', { name: 'Search' });
+  }
 
   private movieLink = (movieName: string) =>
     this.page.getByRole('link', { name: movieName });

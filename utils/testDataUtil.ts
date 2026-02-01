@@ -8,5 +8,13 @@ export function getTestData(fileName: string) {
     fileName
   );
 
-  return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Test data file not found: ${filePath}`);
+  }
+
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  } catch (error) {
+    throw new Error(`Invalid JSON in test data file ${filePath}: ${error instanceof Error ? error.message : String(error)}`);
+  }
 }

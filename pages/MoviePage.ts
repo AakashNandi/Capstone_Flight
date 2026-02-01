@@ -1,10 +1,11 @@
 import { Page } from '@playwright/test';
 
 export class MoviePage {
-  constructor(private page: Page) {}
+  private seeRetailersButton: ReturnType<typeof this.page.getByRole>;
 
-  private seeRetailersButton =
-    this.page.getByRole('button', { name: 'See Retailers' });
+  constructor(private page: Page) {
+    this.seeRetailersButton = this.page.getByRole('button', { name: 'See Retailers' });
+  }
 
   async clickSeeRetailers() {
     await this.seeRetailersButton.scrollIntoViewIfNeeded();
