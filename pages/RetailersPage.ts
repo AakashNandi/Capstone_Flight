@@ -1,34 +1,22 @@
 import { Page, expect } from '@playwright/test';
 
 export class RetailersPage {
-  private retailersSection!: ReturnType<Page['locator']>;
-  private retailerButtons!: ReturnType<Page['locator']>;
+  constructor(private page: Page) {}
 
-  constructor(private page: Page) {
-    this.retailersSection = this.page.locator('section:has-text("Retailers")');
-    this.retailerButtons = this.retailersSection.locator('button');
-  }
+  async clickRetailerAndValidate(retailerName: string) {
 
-  async validateFirstThreeRetailers() {
-    // 1) Close blocking modal if it exists
-    const closeBtn = this.page.getByRole('button', { name: /close/i });
-    if (await closeBtn.isVisible().catch(() => false)) {
-      await closeBtn.click();
-    }
+    // Dynamic retailer button (partial match)
+    const retailerButton = this.page.getByRole('button', {
+      name: new RegExp(retailerName, 'i')
+    });
 
-    // 2) Wait for retailers section to be visible
-    await expect(this.retailersSection).toBeVisible();
+    // Wait & click
+    await expect(retailerButton).toBeVisible({ timeout: 15000 });
+    await retailerButton.click();
 
-    // 3) Wait until at least one retailer button appears
-    await expect(this.retailerButtons.first()).toBeVisible();
-
-    const count = await this.retailerButtons.count();
-    const limit = Math.min(count, 3);
-
-    for (let i = 0; i < limit; i++) {
-      const retailer = this.retailerButtons.nth(i);
-      await expect(retailer).toBeVisible();
-      console.log(`Retailer ${i + 1}: ${await retailer.innerText()}`);
-    }
+    // Validation on retailer page
+    await expect(
+      this.page.getByRole('link', { name: 'Sign Up - Free' })
+    ).toBeVisible();
   }
 }
