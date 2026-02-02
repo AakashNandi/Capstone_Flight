@@ -1,11 +1,11 @@
 {
   "movies": [
     {
-      "name": "Tenet",
+      "name": "The Shawshank Redemption",
       "retailer": "iTunes"
     },
     {
-      "name": "Tenet",
+      "name": "Inception",
       "retailer": "Prime Video"
     },
     {
